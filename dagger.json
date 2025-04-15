@@ -1,0 +1,8 @@
+{
+  "name": "devoxx-dagger",
+  "engineVersion": "v0.18.3",
+  "sdk": {
+    "source": "java"
+  },
+  "source": ".dagger"
+}
