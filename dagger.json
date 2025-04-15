@@ -6,9 +6,9 @@
   },
   "dependencies": [
     {
-      "name": "gh",
-      "source": "github.com/sagikazarmark/daggerverse/gh",
-      "pin": "e6c14178bcaaff9e102e2a89173ca31479b80629"
+      "name": "signoff",
+      "source": "github.com/eunomie/daggerverse/signoff",
+      "pin": "430c7a7ebb5e29895f7d07888ce587bdffddeef0"
     }
   ],
   "source": ".dagger"
