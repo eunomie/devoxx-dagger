@@ -26,12 +26,16 @@ public class DevoxxDagger {
     // signoff the commit
     s.create();
 
+    String out = "✓ commit %s signed off\n".formatted(s.sha());
+
     // open the PR if needed
     String pr = s.pullRequest();
     if (pr.isEmpty()) {
-      return s.openPr(new Signoff.OpenPrArguments().withVerbose(true));
+      out += "✓ pull request opened: " + s.openPr(new Signoff.OpenPrArguments().withVerbose(true));
+    } else {
+      out += "✓ existing pull request: " + pr;
     }
-    return pr;
+    return out;
   }
 
   /** Return the result of running unit tests */
