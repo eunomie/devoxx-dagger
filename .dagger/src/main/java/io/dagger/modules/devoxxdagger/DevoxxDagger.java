@@ -5,7 +5,6 @@ import static io.dagger.client.Dagger.dag;
 import io.dagger.client.*;
 import io.dagger.module.annotation.DefaultPath;
 import io.dagger.module.annotation.Function;
-import io.dagger.module.annotation.Ignore;
 import io.dagger.module.annotation.Object;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -27,12 +26,16 @@ public class DevoxxDagger {
     // signoff the commit
     s.create();
 
+    String out = "✓ commit %s signed off\n".formatted(s.sha());
+
     // open the PR if needed
     String pr = s.pullRequest();
     if (pr.isEmpty()) {
-      return s.openPr(new Signoff.OpenPrArguments().withVerbose(true));
+      out += "✓ pull request opened: " + s.openPr(new Signoff.OpenPrArguments().withVerbose(true));
+    } else {
+      out += "✓ existing pull request: " + pr;
     }
-    return pr;
+    return out;
   }
 
   /** Return the result of running unit tests */
@@ -44,14 +47,13 @@ public class DevoxxDagger {
 
   /** Build a ready-to-use development environment */
   @Function
-  public Container buildEnv(
-      @DefaultPath("/") @Ignore({".dagger", "dagger.json", ".git"}) Directory source) {
+  public Container buildEnv(@DefaultPath("/") Directory source) {
     CacheVolume nodeCache = dag().cacheVolume("node");
     return dag()
         .container()
         .from("node:21-slim")
-        .withDirectory("/src", source)
         .withMountedCache("/root/.npm", nodeCache)
+        .withDirectory("/src", source)
         .withWorkdir("/src")
         .withExec(List.of("npm", "install"));
   }

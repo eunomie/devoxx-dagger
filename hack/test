@@ -5,8 +5,8 @@
 
 container |\
   from "node:21-slim" |\
-  with-directory "/src" . |\
   with-mounted-cache "/root/.npm" $(cache-volume "node") |\
+  with-directory "/src" . |\
   with-workdir "/src" |\
   with-exec npm install |\
   with-exec npm run test:unit run |\
