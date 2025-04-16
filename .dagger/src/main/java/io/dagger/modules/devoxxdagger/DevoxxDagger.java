@@ -55,4 +55,12 @@ public class DevoxxDagger {
         .withWorkdir("/src")
         .withExec(List.of("npm", "install"));
   }
+
+  /** Install check on default branch */
+  @Function
+  public String install(@DefaultPath("/") Directory source, Secret token)
+      throws ExecutionException, DaggerQueryException, InterruptedException {
+    dag().signoff(source, token).install();
+    return "✓️ check installed on default branch";
+  }
 }
