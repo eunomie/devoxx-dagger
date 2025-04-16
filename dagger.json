@@ -1,0 +1,15 @@
+{
+  "name": "devoxx-dagger",
+  "engineVersion": "v0.18.3",
+  "sdk": {
+    "source": "java"
+  },
+  "dependencies": [
+    {
+      "name": "signoff",
+      "source": "github.com/eunomie/daggerverse/signoff",
+      "pin": "f80f0e4f658e7df78c69e699bcfe89bb214f7dfc"
+    }
+  ],
+  "source": ".dagger"
+}

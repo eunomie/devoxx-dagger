@@ -1,0 +1,13 @@
+#!/usr/bin/env -S dagger shell -q -w --no-mod
+
+# HACK: strip "test" from the script path to get the parent module
+.cd ${0%/test}/..
+
+container |\
+  from "node:21-slim" |\
+  with-directory "/src" . |\
+  with-mounted-cache "/root/.npm" $(cache-volume "node") |\
+  with-workdir "/src" |\
+  with-exec npm install |\
+  with-exec npm run test:unit run |\
+  stdout
