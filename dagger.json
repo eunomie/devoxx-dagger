@@ -8,7 +8,7 @@
     {
       "name": "signoff",
       "source": "github.com/eunomie/daggerverse/signoff",
-      "pin": "af71d41061b050a82cdf13d4678e9465b1066a53"
+      "pin": "f0c503adb15280150ae5488e89b734682a61cc3a"
     }
   ],
   "source": ".dagger"

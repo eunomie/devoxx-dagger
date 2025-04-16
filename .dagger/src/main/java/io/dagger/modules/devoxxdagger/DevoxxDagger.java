@@ -21,19 +21,17 @@ public class DevoxxDagger {
     s.isClean();
 
     // ensure tests are passing
-    String testOutput = test(source);
-    System.out.println(testOutput);
+    test(source);
 
     // signoff the commit
     s.create();
 
     // open the PR if needed
-    boolean pr = s.hasOpenedPr();
-    if (!pr) {
+    String pr = s.pullRequest();
+    if (pr.isEmpty()) {
       return s.openPr(new Signoff.OpenPrArguments().withVerbose(true));
     }
-
-    return "ok";
+    return pr;
   }
 
   /** Return the result of running unit tests */
