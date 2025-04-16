@@ -15,12 +15,25 @@ public class DevoxxDagger {
   @Function
   public String signoff(@DefaultPath("/") Directory source, Secret token)
       throws ExecutionException, DaggerQueryException, InterruptedException {
-    dag().signoff(source, token).isClean();
+    Signoff s = dag().signoff(source, token);
 
-    var testOutput = test(source);
+    // ensure the repository is clean
+    s.isClean();
+
+    // ensure tests are passing
+    String testOutput = test(source);
     System.out.println(testOutput);
 
-    return "ready to signoff";
+    // signoff the commit
+    s.create();
+
+    // open the PR if needed
+    boolean pr = s.hasOpenedPr();
+    if (!pr) {
+      return s.openPr(new Signoff.OpenPrArguments().withVerbose(true));
+    }
+
+    return "ok";
   }
 
   /** Return the result of running unit tests */
