@@ -50,7 +50,10 @@ public class DevoxxDagger {
     return dag()
         .container()
         .from("node:21-slim")
-        .withDirectory("/src", source)
+        .withDirectory(
+            "/src",
+            source,
+            new Container.WithDirectoryArguments().withExclude(List.of(".dagger", "dagger.json")))
         .withMountedCache("/root/.npm", nodeCache)
         .withWorkdir("/src")
         .withExec(List.of("npm", "install"));
