@@ -5,7 +5,6 @@ import static io.dagger.client.Dagger.dag;
 import io.dagger.client.*;
 import io.dagger.module.annotation.DefaultPath;
 import io.dagger.module.annotation.Function;
-import io.dagger.module.annotation.Ignore;
 import io.dagger.module.annotation.Object;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -44,8 +43,7 @@ public class DevoxxDagger {
 
   /** Build a ready-to-use development environment */
   @Function
-  public Container buildEnv(
-      @DefaultPath("/") @Ignore({".dagger", "dagger.json", ".git"}) Directory source) {
+  public Container buildEnv(@DefaultPath("/") Directory source) {
     CacheVolume nodeCache = dag().cacheVolume("node");
     return dag()
         .container()
