@@ -1,4 +1,4 @@
-#!/usr/bin/env -S dagger shell -q -w --no-mod
+#!/usr/bin/env -S dagger shell -q --no-mod
 
 # HACK: strip "test" from the script path to get the parent module
 .cd ${0%/test}/..
